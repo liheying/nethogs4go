@@ -11,7 +11,7 @@ import (
 )
 
 func CaptureChild(device string) error {
-	inter, err :=  net.InterfaceByName(device)
+	inter, err := net.InterfaceByName(device)
 	if err != nil {
 		fmt.Printf(fmt.Sprintf("net.InterfaceByName error: %v\n", err))
 		return err
@@ -40,7 +40,7 @@ func CaptureChild(device string) error {
 					ipv4Addr = ip4
 					continue
 				}
-	
+
 				if ip6 := ip.To16(); ip6 != nil && ip6[0] != 0xfe {
 					ipv6Addr = ip6
 				}
@@ -106,7 +106,7 @@ func CaptureChild(device string) error {
 
 					if isIpv4 {
 						if _, ok := PcapRuleManager.Get().Tcp4Map[port]; !ok {
-							if (isSend) {
+							if isSend {
 								PcapRuleManager.Get().UnknowTcp4Send[port] += packetSize
 							} else {
 								PcapRuleManager.Get().UnknowTcp4Recv[port] += packetSize
@@ -115,7 +115,7 @@ func CaptureChild(device string) error {
 						}
 					} else {
 						if _, ok := PcapRuleManager.Get().Tcp6Map[port]; !ok {
-							if (isSend) {
+							if isSend {
 								PcapRuleManager.Get().UnknowTcp6Send[port] += packetSize
 							} else {
 								PcapRuleManager.Get().UnknowTcp6Recv[port] += packetSize
@@ -135,7 +135,7 @@ func CaptureChild(device string) error {
 
 						if isIpv4 {
 							if _, ok := PcapRuleManager.Get().Udp4Map[port]; !ok {
-								if (isSend) {
+								if isSend {
 									PcapRuleManager.Get().UnknowUdp4Send[port] += packetSize
 								} else {
 									PcapRuleManager.Get().UnknowUdp4Recv[port] += packetSize
@@ -144,7 +144,7 @@ func CaptureChild(device string) error {
 							}
 						} else {
 							if _, ok := PcapRuleManager.Get().Udp6Map[port]; !ok {
-								if (isSend) {
+								if isSend {
 									PcapRuleManager.Get().UnknowUdp6Send[port] += packetSize
 								} else {
 									PcapRuleManager.Get().UnknowUdp6Recv[port] += packetSize
