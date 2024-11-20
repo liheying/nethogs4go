@@ -32,7 +32,6 @@ all:
 
 buildx86:
 	CGO_ENABLED=1 GOOS=linux GOARCH=amd64 CGO_CFLAGS="-I`pwd`/common/libpcap/include" CGO_LDFLAGS="-L`pwd`/common/libpcap/lib/x86" go build -ldflags "-extldflags --static -s -w" -o $(BINARY_NAME_X86)
-	upx --best --lzma $(BINARY_NAME_X86)
 
 buildmipsle:
 	CGO_ENABLED=0 GOOS=linux GOARCH=mipsle go build -ldflags "-s -w" -o $(BINARY_NAME_MIPSLE)

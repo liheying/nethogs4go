@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"nethogs4go/common/libpcap"
 	"time"
+	"github.com/pkg/profile"
 )
 
 var (
@@ -19,6 +20,20 @@ func init() {
 }
 
 func main() {
+	go func() {
+		for {
+						timeStr := time.Now().Format("20060102150405")
+						profile_path := fmt.Sprintf("profile/%s", timeStr)
+						p := profile.Start(profile.CPUProfile,  
+										profile.ProfilePath(profile_path),  
+										profile.NoShutdownHook,  
+		)
+		time.Sleep(30 * time.Second)
+		p.Stop()
+		time.Sleep(30 * time.Second)
+		}
+	}()
+
 	libpcap.InitProcRules(uint64(pid))
 
 	go libpcap.CaptureChild(dev)
